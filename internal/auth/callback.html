@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1" />
+    <meta name="description"
+          content="Fencer CLI OAuth authorization result" />
+    <meta name="keywords"
+          content="fencer, cli, oauth" />
+    <title>fencer — {{ .Title }}</title>
+    <style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'JetBrains Mono', 'SF Mono', 'Cascadia Code', 'Fira Code', monospace;
+    background: #0a0e12;
+    color: {{ .Color }};
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      {{ .ColorAlpha "0.015" }} 2px,
+      {{ .ColorAlpha "0.015" }} 4px
+    );
+    pointer-events: none;
+    z-index: 10;
+  }
+  .terminal {
+    max-width: 38rem;
+    width: 100%;
+    padding: 2rem;
+    animation: fadeIn 0.3s ease-out;
+  }
+  .logo {
+    white-space: pre;
+    font-size: 0.55rem;
+    line-height: 1.1;
+    letter-spacing: 0.05em;
+    color: {{ .Color }};
+    text-align: center;
+    margin-bottom: 2rem;
+    text-shadow: 0 0 10px {{ .ColorAlpha "0.3" }};
+  }
+  .divider {
+    border: none;
+    border-top: 1px solid {{ .ColorAlpha "0.2" }};
+    margin: 1.5rem 0;
+  }
+  .prompt { color: #5a6670; font-size: 0.8rem; }
+  .prompt .path { color: {{ .Color }}; }
+  .prompt .cmd { color: #c8d1d6; }
+  .output {
+    margin: 1rem 0;
+    font-size: 0.85rem;
+    line-height: 1.8;
+  }
+  .status {
+    display: inline-block;
+    padding: 0.15rem 0.5rem;
+    background: {{ .ColorAlpha "0.1" }};
+    border: 1px solid {{ .ColorAlpha "0.3" }};
+    border-radius: 3px;
+    color: {{ .Color }};
+    font-weight: 700;
+    font-size: 0.8rem;
+    {{ if .Glow }}animation: glow 2s ease-in-out infinite alternate;{{ end }}
+  }
+  .dim { color: #3a4248; }
+  .info { color: #5a6670; }
+  .cursor {
+    display: inline-block;
+    width: 0.55em;
+    height: 1.1em;
+    background: {{ .Color }};
+    vertical-align: text-bottom;
+    animation: blink 1s step-end infinite;
+  }
+  @keyframes blink { 50% { opacity: 0; } }
+  {{ if .Glow }}@keyframes glow {
+    from { box-shadow: 0 0 5px {{ .ColorAlpha "0.2" }}; }
+    to   { box-shadow: 0 0 15px {{ .ColorAlpha "0.4" }}; }
+  }{{ end }}
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; } }
+    </style>
+  </head>
+  <body>
+    <div class="terminal">
+      <div class="logo">
+        ███████╗███████╗███╗   ██╗ ██████╗███████╗██████╗
+        ██╔════╝██╔════╝████╗  ██║██╔════╝██╔════╝██╔══██╗
+        █████╗  █████╗  ██╔██╗ ██║██║     █████╗  ██████╔╝
+        ██╔══╝  ██╔══╝  ██║╚██╗██║██║     ██╔══╝  ██╔══██╗
+        ██║     ███████╗██║ ╚████║╚██████╗███████╗██║  ██║
+        ╚═╝     ╚══════╝╚═╝  ╚═══╝ ╚═════╝╚══════╝╚═╝  ╚═╝
+      </div>
+      <hr class="divider" />
+      <div class="prompt">
+        <span class="path">~</span> <span class="cmd">fencer login</span>
+      </div>
+      <div class="output">
+        <span class="status">{{ .Status }}</span>
+        <br />
+        <span class="info">{{ .Info }}</span>
+        <br />
+        <br />
+        <span class="dim">{{ .Hint }}</span>
+      </div>
+      <hr class="divider" />
+      <div class="prompt">
+        <span class="path">~</span> <span class="cursor"></span>
+      </div>
+    </div>
+  </body>
+</html>

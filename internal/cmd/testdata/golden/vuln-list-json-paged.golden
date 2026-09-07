@@ -1,0 +1,25 @@
+{
+  "results": [
+    {
+      "slug": "v1",
+      "title": "A",
+      "severity": 1,
+      "status": "open",
+      "priority_level": "",
+      "asset_name": "a",
+      "asset_resource_slug": "ARES-X1",
+      "asset_resource_kind": "repository",
+      "assignee_email": "",
+      "assignee_name": "",
+      "web_url": "u1"
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "page_size": 50,
+    "count": 120,
+    "total_pages": 3,
+    "next_page": 2,
+    "previous_page": null
+  }
+}

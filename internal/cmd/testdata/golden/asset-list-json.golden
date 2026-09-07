@@ -1,0 +1,32 @@
+{
+  "results": [
+    {
+      "slug": "AR-9R4",
+      "kind_name": "Application",
+      "provider_name": "Azure",
+      "category": "web",
+      "description": "checkout-service",
+      "belongs_to": "acme",
+      "asset_type": "application",
+      "criticality": 80
+    },
+    {
+      "slug": "AR-K2X",
+      "kind_name": "Repository",
+      "provider_name": "GitHub",
+      "category": "code",
+      "description": "acme-corp/web",
+      "belongs_to": "acme",
+      "asset_type": "repository",
+      "criticality": 50
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "page_size": 50,
+    "count": 2,
+    "total_pages": 1,
+    "next_page": null,
+    "previous_page": null
+  }
+}

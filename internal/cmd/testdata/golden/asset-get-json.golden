@@ -1,0 +1,10 @@
+{
+  "slug": "AR-9R4",
+  "kind_name": "Application",
+  "provider_name": "Azure",
+  "category": "web",
+  "description": "checkout-service",
+  "belongs_to": "acme",
+  "asset_type": "application",
+  "criticality": 80
+}

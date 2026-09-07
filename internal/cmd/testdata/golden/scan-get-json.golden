@@ -1,0 +1,23 @@
+{
+  "slug": "SCAN-9RG",
+  "status": "completed",
+  "queued_at": "2026-04-20T09:59:00Z",
+  "started_at": "2026-04-20T10:00:00Z",
+  "finished_at": "2026-04-20T10:05:30Z",
+  "duration_seconds": 330.5,
+  "asset_type": "repository",
+  "asset_name": "web-app",
+  "branch": "main",
+  "trigger_type": "manual",
+  "trigger_description": "Manual scan by Alice",
+  "failed_reason": "",
+  "error_suggestion": "",
+  "counts": {
+    "count_new": 2,
+    "count_existing": 3,
+    "count_open": 5,
+    "count_resolved": 0,
+    "count_ignored": 0,
+    "count_critical_high": 2
+  }
+}

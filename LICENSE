@@ -1,0 +1,46 @@
+Fencer CLI Software License
+
+Copyright © 2026 Fencer, Inc.
+
+This binary and its accompanying materials (the "Software") are proprietary to
+Fencer, Inc. ("Fencer"). They are licensed, not sold.
+
+1. License grant. Subject to a current Fencer Subscription Services Agreement
+   (the "Agreement") between Fencer and the customer that obtained this Software
+   ("Customer"), Fencer grants Customer a non-exclusive, non-transferable,
+   non-sublicensable license to install and use the Software solely to access
+   Customer's Fencer organization(s) in accordance with the Agreement and
+   Fencer's documentation.
+
+2. Restrictions. Customer may not (and may not allow others to): (a) use the
+   Software except as permitted by the Agreement; (b) sell, sublicense, rent,
+   or otherwise redistribute the Software except internally to Customer's
+   Authorized Users; (c) reverse engineer, decompile, or disassemble the
+   Software except to the extent applicable law prohibits this restriction;
+   (d) remove or alter proprietary notices; or (e) use the Software to access
+   Fencer on behalf of any third party that is not covered by Customer's
+   Agreement.
+
+3. Third-party components. The Software includes third-party open source
+   components. Those components are licensed to you under their own terms,
+   which are reproduced in THIRD_PARTY_NOTICES. Fencer's license above does
+   not modify those terms.
+
+4. No open-source grant. This Software is not licensed under an open-source
+   license. Possession of the binary does not grant rights to Fencer's
+   application source code or to any other licensed code.
+
+5. Term. This license ends when the Agreement ends. Upon termination, Customer
+   must stop using the Software and destroy copies in its possession, except
+   for copies retained under Customer's legal hold or archival obligations.
+
+6. Disclaimer and liability. THE SOFTWARE IS PROVIDED "AS IS". TO THE MAXIMUM
+   EXTENT PERMITTED BY LAW, THE DISCLAIMERS, WARRANTY EXCLUSIONS, AND
+   LIMITATIONS OF LIABILITY IN THE AGREEMENT APPLY TO THE SOFTWARE.
+
+7. Support. Supported platforms, upgrade policy, and support channels are
+   described at https://docs.fencer.dev/cli/installation. Fencer has no
+   obligation to support unofficial builds, modified binaries, or platforms
+   that are not listed as supported.
+
+Questions: hello@fencer.dev

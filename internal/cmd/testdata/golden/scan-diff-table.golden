@@ -1,0 +1,10 @@
+=== New (2) ===
+SLUG       TITLE             SEVERITY  CATEGORY   LOCATION               
+─────────────────────────────────────────────────────────────────────────
+vuln-new1  Hardcoded secret  critical  secrets    config/settings.py:42  
+vuln-new2  SQL Injection     high      injection  views/login.py:88      
+
+=== Resolved (1) ===
+SLUG      TITLE     SEVERITY  CATEGORY  LOCATION       
+───────────────────────────────────────────────────────
+vuln-old  Weak TLS  medium    crypto    nginx.conf:12  

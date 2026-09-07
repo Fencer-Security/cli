@@ -1,0 +1,17 @@
+FIELD          VALUE                 
+─────────────────────────────────────
+Slug           SCAN-9RG              
+Status         completed             
+Asset          repository (web-app)  
+Branch         main                  
+Queued at      2026-04-20T09:59:00Z  
+Started at     2026-04-20T10:00:00Z  
+Finished at    2026-04-20T10:05:30Z  
+Duration (s)   330.50                
+Trigger        Manual scan by Alice  
+New            2                     
+Open           5                     
+Existing       3                     
+Resolved       0                     
+Ignored        0                     
+Critical+High  2                     

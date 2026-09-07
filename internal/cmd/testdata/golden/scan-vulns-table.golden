@@ -1,0 +1,7 @@
+SLUG       TITLE             SEVERITY  STATE     CATEGORY   LOCATION               
+───────────────────────────────────────────────────────────────────────────────────
+vuln-new1  Hardcoded secret  critical  new       secrets    config/settings.py:42  
+vuln-new2  SQL Injection     high      new       injection  views/login.py:88      
+vuln-old   Weak TLS          medium    existing  crypto     nginx.conf:12          
+
+Page 1 of 1 (3 total).

@@ -1,0 +1,13 @@
+{
+  "slug": "vuln-abc123",
+  "title": "SQL Injection in login form",
+  "severity": 1,
+  "status": "open",
+  "priority_level": "",
+  "asset_name": "web-app",
+  "asset_resource_slug": "ARES-AJ3",
+  "asset_resource_kind": "repository",
+  "assignee_email": "alice@example.com",
+  "assignee_name": "Alice Smith",
+  "web_url": "https://app.fencer.dev/a/acme/vulnerabilities/vuln-abc123/"
+}

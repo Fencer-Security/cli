@@ -1,0 +1,11 @@
+FIELD     VALUE                                                       
+──────────────────────────────────────────────────────────────────────
+Slug      vuln-abc123                                                 
+Title     SQL Injection in login form                                 
+Severity  high                                                        
+Status    open                                                        
+Asset     ARES-AJ3                                                    
+Kind      repository                                                  
+Name      web-app                                                     
+Assignee  alice@example.com                                           
+URL       https://app.fencer.dev/a/acme/vulnerabilities/vuln-abc123/  

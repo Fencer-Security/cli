@@ -1,0 +1,63 @@
+{
+  "results": [
+    {
+      "slug": "vuln-new1",
+      "title": "Hardcoded secret",
+      "description": "AWS access key committed to config/settings.py.",
+      "severity": 0,
+      "category": "secrets",
+      "status": "open",
+      "display_status": "new",
+      "new": true,
+      "resolved": false,
+      "ignored": false,
+      "live": true,
+      "asset_type": "repository",
+      "asset_name": "web-app",
+      "location_title": "config/settings.py:42",
+      "first_seen": "2026-04-20T10:00:00Z"
+    },
+    {
+      "slug": "vuln-new2",
+      "title": "SQL Injection",
+      "description": "Login form concatenates user input into a raw SQL query.",
+      "severity": 1,
+      "category": "injection",
+      "status": "open",
+      "display_status": "new",
+      "new": true,
+      "resolved": false,
+      "ignored": false,
+      "live": true,
+      "asset_type": "repository",
+      "asset_name": "web-app",
+      "location_title": "views/login.py:88",
+      "first_seen": "2026-04-20T10:00:00Z"
+    },
+    {
+      "slug": "vuln-old",
+      "title": "Weak TLS",
+      "description": "Server accepts TLS 1.0 connections.",
+      "severity": 2,
+      "category": "crypto",
+      "status": "open",
+      "display_status": "existing",
+      "new": false,
+      "resolved": false,
+      "ignored": false,
+      "live": true,
+      "asset_type": "repository",
+      "asset_name": "web-app",
+      "location_title": "nginx.conf:12",
+      "first_seen": "2026-03-01T10:00:00Z"
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "page_size": 50,
+    "count": 3,
+    "total_pages": 1,
+    "next_page": null,
+    "previous_page": null
+  }
+}

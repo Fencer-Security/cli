@@ -1,0 +1,6 @@
+SLUG      STATUS     CREATED               TRIGGER         BRANCH  VULNS  NEW  CRIT  HIGH  
+───────────────────────────────────────────────────────────────────────────────────────────
+SCAN-9RG  completed  2026-04-20T10:00:00Z  manual (Alice)  main    5      2    1     1     
+SCAN-9RF  failed     2026-04-19T09:00:00Z  scheduled       main    0      0    0     0     
+
+Page 1 of 1 (2 total).

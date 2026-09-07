@@ -1,0 +1,5 @@
+SLUG         TITLE              SEVERITY  STATUS  ASSET     KIND        NAME     ASSIGNEE           URL                 
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+vuln-abc123  SQL Injection in…  high      open    ARES-AJ3  repository  web-app  alice@example.com  https://app.fence…  
+
+Page 1 of 1 (1 total).

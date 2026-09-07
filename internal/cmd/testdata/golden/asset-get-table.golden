@@ -1,0 +1,10 @@
+FIELD        VALUE             
+───────────────────────────────
+Slug         AR-9R4            
+Name         checkout-service  
+Kind         Application       
+Provider     Azure             
+Category     web               
+Criticality  80                
+Belongs to   acme              
+Type         application       

@@ -1,0 +1,42 @@
+{
+  "results": [
+    {
+      "slug": "SCAN-9RG",
+      "status": "completed",
+      "created_at": "2026-04-20T10:00:00Z",
+      "trigger_type": "manual",
+      "trigger_by_name": "Alice",
+      "trigger_description": "",
+      "branch": "main",
+      "count_vulnerabilities": 5,
+      "count_new": 2,
+      "count_critical": 1,
+      "count_high": 1,
+      "has_failed_checks": false,
+      "failed_reason": ""
+    },
+    {
+      "slug": "SCAN-9RF",
+      "status": "failed",
+      "created_at": "2026-04-19T09:00:00Z",
+      "trigger_type": "scheduled",
+      "trigger_by_name": "",
+      "trigger_description": "",
+      "branch": "main",
+      "count_vulnerabilities": 0,
+      "count_new": 0,
+      "count_critical": 0,
+      "count_high": 0,
+      "has_failed_checks": false,
+      "failed_reason": "timeout"
+    }
+  ],
+  "pagination": {
+    "page": 1,
+    "page_size": 50,
+    "count": 2,
+    "total_pages": 1,
+    "next_page": null,
+    "previous_page": null
+  }
+}

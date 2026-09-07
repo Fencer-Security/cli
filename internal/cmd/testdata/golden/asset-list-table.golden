@@ -1,0 +1,6 @@
+SLUG    NAME              KIND         PROVIDER  CRITICALITY  BELONGS TO  
+──────────────────────────────────────────────────────────────────────────
+AR-9R4  checkout-service  Application  Azure     80           acme        
+AR-K2X  acme-corp/web     Repository   GitHub    50           acme        
+
+Page 1 of 1 (2 total).
