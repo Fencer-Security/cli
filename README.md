@@ -42,14 +42,6 @@ Customer-facing install, auth, MCP, and upgrade docs live at
 curl -fsSL https://raw.githubusercontent.com/Fencer-Security/cli/main/scripts/install.sh | sh
 ```
 
-For local development from this repository:
-
-```sh
-cd cli
-make build          # produces ./build/fencer, defaults to the local dev domain
-make build-prod VERSION=1.2.3  # production API URL; VERSION cannot be 0.0.0
-```
-
 ## Usage
 
 ### Global flags
@@ -60,7 +52,6 @@ These work on every command:
 | ------------------- | ------------ | -------------- | ---------------------------------------------------- |
 | `--org <slug>`      | `FENCER_ORG` | —              | Required for every org-scoped command                |
 | `--output, -o`      | —            | `table`        | `table` or `json`                                    |
-| `--base-url <url>`  | —            | from token     | Override the API base URL                            |
 | `--yes, -y`         | —            | `false`        | Skip confirmation prompts on write commands          |
 | `--page <n>`        | —            | `1`            | List commands only; 1-indexed                        |
 | `--page-size <n>`   | —            | `50`           | List commands only; max 1000                         |
@@ -237,19 +228,7 @@ Install and upgrade instructions: [docs.fencer.dev/cli/installation](https://doc
 
 ## Config
 
-Tokens and base URL are stored at `~/.config/fencer/tokens.json` (XDG: `$XDG_CONFIG_HOME/fencer/`).
-Credentials are bound to the origin used at `fencer login`. `--base-url` on other commands is
-accepted only when it matches that origin; switching environments requires logging in again.
-Production origins must use HTTPS. HTTP is allowed only for local development hosts
-(`localhost`, `127.0.0.1`, `::1`, `app.fencer.home`).
-
-Before the first login (no stored token yet), the base URL falls back to `config.DefaultBaseURL`,
-which is compiled in at build time:
-
-- `make build` (and plain `go build`/`go install`) → `http://app.fencer.home` (local dev)
-- `make build-prod VERSION=<semver>` → `https://app.fencer.dev` (production). `VERSION=0.0.0` is rejected.
-
-Once logged in, the base URL from the stored token is used regardless of what the binary was
-compiled with — the compiled default only matters for that first `fencer login`.
+Tokens are stored at `~/.config/fencer/tokens.json` (XDG: `$XDG_CONFIG_HOME/fencer/`). The CLI
+connects to `https://app.fencer.dev`.
 
 `fencer version` and `fencer --version` print the build identity.

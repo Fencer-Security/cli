@@ -119,7 +119,8 @@ nfpms:
 
 homebrew_casks:
     - name: fencer
-      skip_upload: true
+      # Publish the cask on real tagged releases; snapshot/dispatch builds skip the tap push.
+      skip_upload: "{{ .IsSnapshot }}"
       homepage: https://www.fencer.dev
       description: Command-line interface for the Fencer security platform
       binaries:
@@ -129,6 +130,10 @@ homebrew_casks:
       repository:
           owner: Fencer-Security
           name: homebrew-tap
+          # Cross-repo push token: the release runs in Fencer-Security/cli but commits the cask to the
+          # separate homebrew-tap repo, so goreleaser needs a token scoped to that repo (the default
+          # GITHUB_TOKEN is scoped to cli only). Minted from the CLI mirror GitHub App in release.yml.
+          token: "{{ .Env.HOMEBREW_TAP_TOKEN }}"
       hooks:
           post:
               install: |

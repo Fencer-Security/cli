@@ -76,6 +76,19 @@ jobs:
             - name: Generate third-party notices
               run: make notices
 
+            # Cross-repo token for the Homebrew cask push: the default GITHUB_TOKEN is scoped to this
+            # repo (Fencer-Security/cli), but goreleaser commits the cask to Fencer-Security/homebrew-tap.
+            # Reuse the CLI mirror GitHub App (its id/private-key secrets must be present here and the app
+            # installed on homebrew-tap with contents:write). ENG-10061.
+            - name: Mint token for the Homebrew tap
+              id: tap-token
+              uses: actions/create-github-app-token@bcd2ba49218906704ab6c1aa796996da409d3eb1 # v3.2.0
+              with:
+                  app-id: ${{ secrets.CLI_MIRROR_APP_ID }}
+                  private-key: ${{ secrets.CLI_MIRROR_APP_PRIVATE_KEY }}
+                  owner: Fencer-Security
+                  repositories: homebrew-tap
+
             - name: Release
               uses: goreleaser/goreleaser-action@f06c13b6b1a9625abc9e6e439d9c05a8f2190e94 # v7.2.3
               with:
@@ -84,6 +97,7 @@ jobs:
                   args: release --clean
               env:
                   GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+                  HOMEBREW_TAP_TOKEN: ${{ steps.tap-token.outputs.token }}
                   FENCER_CLI_VERSION: ${{ steps.version.outputs.version }}
 
             - name: Smoke released linux amd64 binary
