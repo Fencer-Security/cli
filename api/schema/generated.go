@@ -15134,13 +15134,7 @@ type Invitation struct {
 	InvitedBy    *string             `json:"invited_by,omitempty"`
 	IsAccepted   *bool               `json:"is_accepted,omitempty"`
 	Organization int                 `json:"organization"`
-
-	// Role * `admin` - Administrator
-	// * `member` - Team Member
-	// * `read_only` - Read Only
-	// * `pentester` - Penetration Tester
-	// * `read_only_admin` - Read-Only Administrator
-	Role *DefaultRoleEnum `json:"role,omitempty"`
+	Role         *DefaultRoleEnum    `json:"role,omitempty"`
 }
 
 // InvitationBulkCreate defines model for InvitationBulkCreate.
@@ -18430,13 +18424,7 @@ type PatchedInvitation struct {
 	InvitedBy    *string              `json:"invited_by,omitempty"`
 	IsAccepted   *bool                `json:"is_accepted,omitempty"`
 	Organization *int                 `json:"organization,omitempty"`
-
-	// Role * `admin` - Administrator
-	// * `member` - Team Member
-	// * `read_only` - Read Only
-	// * `pentester` - Penetration Tester
-	// * `read_only_admin` - Read-Only Administrator
-	Role *DefaultRoleEnum `json:"role,omitempty"`
+	Role         *DefaultRoleEnum     `json:"role,omitempty"`
 }
 
 // PatchedIruConnectionWrite defines model for PatchedIruConnectionWrite.
@@ -22229,14 +22217,16 @@ type UsageTotals struct {
 // * `manual_engagement` - manual_engagement
 type UseCaseEnum string
 
-// UserAutomationConfig Member-accessible config for the self-service user builder (ENG-9506): the shared base only -
-// no org-admin destinations (channels, org emails, the member roster), which stay behind
-// org_settings on the org config.
+// UserAutomationConfig Member-accessible config for the self-service user builder (ENG-9506): the shared base plus
+// “slack_identity_linked“ (ENG-9636) - no org-admin destinations (channels, org emails, the member
+// roster), which stay behind org_settings on the org config.
 type UserAutomationConfig struct {
-	ActionTypes     []ActionType     `json:"action_types"`
-	FilterOperators [][]string       `json:"filter_operators"`
-	SlackConnected  bool             `json:"slack_connected"`
-	Triggers        []TriggerCatalog `json:"triggers"`
+	ActionTypes         []ActionType     `json:"action_types"`
+	FilterOperators     [][]string       `json:"filter_operators"`
+	SlackBroken         bool             `json:"slack_broken"`
+	SlackConnected      bool             `json:"slack_connected"`
+	SlackIdentityLinked bool             `json:"slack_identity_linked"`
+	Triggers            []TriggerCatalog `json:"triggers"`
 }
 
 // UserContext defines model for UserContext.

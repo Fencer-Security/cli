@@ -1,0 +1,137 @@
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
+version: 2
+
+project_name: fencer
+
+source:
+    enabled: false
+
+before:
+    hooks:
+        - make notices
+
+builds:
+    - id: fencer
+      main: ./cmd/fencer
+      binary: fencer
+      env:
+          - CGO_ENABLED=0
+      flags:
+          - -trimpath
+      ldflags:
+          - -s -w
+          - -X fencer/cli/internal/version.Version={{ .Env.FENCER_CLI_VERSION }}
+          - -X fencer/cli/internal/version.Commit={{.FullCommit}}
+          - -X fencer/cli/internal/version.Date={{.CommitDate}}
+          - -X fencer/cli/internal/config.DefaultBaseURL=https://app.fencer.dev
+      goos:
+          - linux
+          - darwin
+          - windows
+      goarch:
+          - amd64
+          - arm64
+      mod_timestamp: "{{ .CommitTimestamp }}"
+
+archives:
+    - id: default
+      name_template: "{{ .ProjectName }}_{{ .Env.FENCER_CLI_VERSION }}_{{ .Os }}_{{ .Arch }}"
+      formats:
+          - tar.gz
+      format_overrides:
+          - goos: windows
+            formats:
+                - zip
+      files:
+          - LICENSE
+          - THIRD_PARTY_NOTICES
+          - src: README.md
+            dst: README.md
+
+checksum:
+    name_template: SHA256SUMS
+    algorithm: sha256
+
+sboms:
+    - id: archive
+      artifacts: archive
+      documents:
+          - "{{ .ArtifactName }}.spdx.json"
+
+signs:
+    - cmd: cosign
+      artifacts: checksum
+      output: true
+      certificate: "{{ .ArtifactPath }}.pem"
+      signature: "{{ .ArtifactPath }}.sig"
+      args:
+          - sign-blob
+          - "--yes"
+          - "--output-certificate=${certificate}"
+          - "--output-signature=${signature}"
+          - "${artifact}"
+
+release:
+    name_template: "Fencer CLI v{{ .Env.FENCER_CLI_VERSION }}"
+    make_latest: true
+    extra_files:
+        - glob: LICENSE
+        - glob: THIRD_PARTY_NOTICES
+        - glob: scripts/install.sh
+        - glob: scripts/install.ps1
+    header: |
+        Production Fencer CLI binaries. Each archive includes LICENSE and THIRD_PARTY_NOTICES.
+
+        Install: `curl -fsSL https://raw.githubusercontent.com/Fencer-Security/cli/main/scripts/install.sh | sh`
+
+        Documentation: https://docs.fencer.dev/cli/installation
+    footer: |
+        Verify `SHA256SUMS` with the attached cosign signature (`SHA256SUMS.sig` and `SHA256SUMS.pem`).
+        SPDX SBOMs ship alongside each archive.
+
+snapshot:
+    version_template: "{{ .Version }}-next"
+
+changelog:
+    use: git
+    sort: asc
+    filters:
+        exclude:
+            - "^[Mm]erge "
+
+nfpms:
+    - id: default
+      package_name: fencer
+      file_name_template: "fencer_{{ .Env.FENCER_CLI_VERSION }}_{{ .Arch }}"
+      homepage: https://www.fencer.dev
+      maintainer: Fencer, Inc. <hello@fencer.dev>
+      description: Command-line interface for the Fencer security platform
+      license: Proprietary
+      formats:
+          - deb
+          - rpm
+      bindir: /usr/bin
+      contents:
+          - src: LICENSE
+            dst: /usr/share/doc/fencer/LICENSE
+          - src: THIRD_PARTY_NOTICES
+            dst: /usr/share/doc/fencer/THIRD_PARTY_NOTICES
+
+homebrew_casks:
+    - name: fencer
+      skip_upload: true
+      homepage: https://www.fencer.dev
+      description: Command-line interface for the Fencer security platform
+      binaries:
+          - fencer
+      url:
+          template: "https://github.com/Fencer-Security/cli/releases/download/v{{ .Env.FENCER_CLI_VERSION }}/{{ .ArtifactName }}"
+      repository:
+          owner: Fencer-Security
+          name: homebrew-tap
+      hooks:
+          post:
+              install: |
+                  if OS.mac?
+                    system_command "/usr/bin/xattr", args: ["-dr", "com.apple.quarantine", "#{staged_path}/fencer"]
+                  end

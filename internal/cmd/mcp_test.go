@@ -515,7 +515,62 @@ func TestMCPMissingOrgIsToolError(t *testing.T) {
 	if !res.IsError {
 		t.Fatalf("expected tool error when org unresolved, got %q", toolText(t, res))
 	}
-	if len(*recs) != 0 {
-		t.Errorf("expected no request when org unresolved, got %+v", *recs)
+	if len(*recs) != 1 {
+		t.Fatalf("expected organizations.list probe, got %d: %+v", len(*recs), *recs)
+	}
+	if (*recs)[0].Path != "/organizations/api/organizations/" {
+		t.Errorf("unexpected path %q", (*recs)[0].Path)
+	}
+}
+
+func TestMCPResolvesSoleOrganizationWhenSlugOmitted(t *testing.T) {
+	setupActionTest(t)
+	cs, recs := newMCPSession(t, func(r *http.Request) (int, string) {
+		if r.URL.Path == "/organizations/api/organizations/" {
+			return 200, `{"count":1,"next":null,"previous":null,"results":[{"id":7,"name":"Acme","slug":"acme"}]}`
+		}
+		return 200, okListJSON
+	})
+
+	vulns := callTool(t, cs, "vulnerabilities.list", map[string]any{})
+	if vulns.IsError {
+		t.Fatalf("vulnerabilities.list: %s", toolText(t, vulns))
+	}
+	assets := callTool(t, cs, "assets.list", map[string]any{})
+	if assets.IsError {
+		t.Fatalf("assets.list: %s", toolText(t, assets))
+	}
+	detections := callTool(t, cs, "detections.list", map[string]any{})
+	if detections.IsError {
+		t.Fatalf("detections.list: %s", toolText(t, detections))
+	}
+
+	if len(*recs) != 6 {
+		t.Fatalf("expected 3 org probes + 3 tool calls, got %d: %+v", len(*recs), *recs)
+	}
+	if (*recs)[1].Path != "/api/v1/org/acme/vulnerabilities/" {
+		t.Errorf("vulnerabilities.list unexpected path %q", (*recs)[1].Path)
+	}
+	if (*recs)[3].Path != "/api/v1/org/acme/asset-inventory/" {
+		t.Errorf("assets.list unexpected path %q", (*recs)[3].Path)
+	}
+	if (*recs)[5].Path != "/api/v1/org/acme/detections/" {
+		t.Errorf("detections.list unexpected path %q", (*recs)[5].Path)
+	}
+}
+
+func TestMCPDoesNotGuessOrganizationWhenSeveralAreAccessible(t *testing.T) {
+	setupActionTest(t)
+	cs, recs := newMCPSession(t, func(*http.Request) (int, string) {
+		return 200, `{"count":2,"next":null,"previous":null,"results":[{"slug":"acme"},{"slug":"other"}]}`
+	})
+
+	res := callTool(t, cs, "vulnerabilities.list", map[string]any{})
+
+	if !res.IsError {
+		t.Fatalf("expected tool error when several orgs are accessible, got %q", toolText(t, res))
+	}
+	if len(*recs) != 1 {
+		t.Fatalf("expected organizations.list probe only, got %d: %+v", len(*recs), *recs)
 	}
 }

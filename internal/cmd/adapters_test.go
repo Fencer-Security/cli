@@ -9,7 +9,7 @@ type orgScopedInput struct {
 
 func TestWithResolvedOrgUsesExplicitSlug(t *testing.T) {
 	setupActionTest(t)
-	got, err := withResolvedOrg(orgScopedInput{OrganizationSlug: "acme", Other: "x"})
+	got, err := withResolvedOrg(nil, orgScopedInput{OrganizationSlug: "acme", Other: "x"})
 	if err != nil {
 		t.Fatalf("withResolvedOrg: %v", err)
 	}
@@ -21,7 +21,7 @@ func TestWithResolvedOrgUsesExplicitSlug(t *testing.T) {
 func TestWithResolvedOrgFallsBackToOrgFlag(t *testing.T) {
 	setupActionTest(t)
 	orgSlug = "from-flag"
-	got, err := withResolvedOrg(orgScopedInput{})
+	got, err := withResolvedOrg(nil, orgScopedInput{})
 	if err != nil {
 		t.Fatalf("withResolvedOrg: %v", err)
 	}
@@ -32,7 +32,7 @@ func TestWithResolvedOrgFallsBackToOrgFlag(t *testing.T) {
 
 func TestWithResolvedOrgMissing(t *testing.T) {
 	setupActionTest(t)
-	_, err := withResolvedOrg(orgScopedInput{})
+	_, err := withResolvedOrg(nil, orgScopedInput{})
 	if err == nil {
 		t.Fatal("expected missing organization error")
 	}

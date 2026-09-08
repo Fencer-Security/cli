@@ -22,7 +22,8 @@ The server reuses the same authenticated session as the rest of the CLI — run
   }
 
 Each org-scoped tool accepts an optional 'organization_slug'; when omitted it
-falls back to --org / FENCER_ORG. Write tools include MCP safety annotations;
+falls back to --org / FENCER_ORG, then to the sole accessible organization
+(service accounts are bound to one). Write tools include MCP safety annotations;
 the CLI still prompts for confirmation unless --yes is passed.`,
 	Args: cobra.NoArgs,
 	RunE: runMCP,

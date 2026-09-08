@@ -39,7 +39,7 @@ Customer-facing install, auth, MCP, and upgrade docs live at
 [docs.fencer.dev/cli/installation](https://docs.fencer.dev/cli/installation).
 
 ```sh
-curl -fsSL https://docs.fencer.dev/cli/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/Fencer-Security/cli/main/scripts/install.sh | sh
 ```
 
 For local development from this repository:
@@ -213,7 +213,8 @@ authenticated session as the rest of the CLI — run `fencer login` first. Tools
 registered operations (`organizations.list`, `vulnerabilities.list`, `scans.diff`, write
 actions, …). List tools take `page` / `page_size` and return the same `{results, pagination}`
 envelope as CLI JSON. Org-scoped tools accept an optional `organization_slug`, falling back
-to `--org` / `FENCER_ORG`. Write tools include MCP safety annotations; the CLI still prompts
+to `--org` / `FENCER_ORG`, then to the sole accessible organization (service accounts are
+bound to one). Write tools include MCP safety annotations; the CLI still prompts
 unless `--yes` is passed.
 
 Register it with an MCP client:

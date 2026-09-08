@@ -49046,10 +49046,10 @@ components:
               type: string
         slack_connected:
           type: boolean
-        slack_workspace:
-          type: string
         slack_broken:
           type: boolean
+        slack_workspace:
+          type: string
         available_email_addresses:
           type: array
           items:
@@ -56791,7 +56791,9 @@ components:
           format: email
           maxLength: 254
         role:
-          $ref: '#/components/schemas/DefaultRoleEnum'
+          allOf:
+          - $ref: '#/components/schemas/DefaultRoleEnum'
+          default: member
         invited_by:
           type: string
           readOnly: true
@@ -63197,7 +63199,9 @@ components:
           format: email
           maxLength: 254
         role:
-          $ref: '#/components/schemas/DefaultRoleEnum'
+          allOf:
+          - $ref: '#/components/schemas/DefaultRoleEnum'
+          default: member
         invited_by:
           type: string
           readOnly: true
@@ -70493,9 +70497,9 @@ components:
     UserAutomationConfig:
       type: object
       description: |-
-        Member-accessible config for the self-service user builder (ENG-9506): the shared base only -
-        no org-admin destinations (channels, org emails, the member roster), which stay behind
-        org_settings on the org config.
+        Member-accessible config for the self-service user builder (ENG-9506): the shared base plus
+        ``slack_identity_linked`` (ENG-9636) - no org-admin destinations (channels, org emails, the member
+        roster), which stay behind org_settings on the org config.
       properties:
         triggers:
           type: array
@@ -70513,10 +70517,16 @@ components:
               type: string
         slack_connected:
           type: boolean
+        slack_broken:
+          type: boolean
+        slack_identity_linked:
+          type: boolean
       required:
       - action_types
       - filter_operators
+      - slack_broken
       - slack_connected
+      - slack_identity_linked
       - triggers
     UserContext:
       type: object

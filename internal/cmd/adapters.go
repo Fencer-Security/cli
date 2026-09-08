@@ -42,7 +42,7 @@ func addOrgMCPTool[Input, Output any](server *mcp.Server, client *api.Client, op
 			IdempotentHint:  operation.Idempotent,
 		},
 	}, func(ctx context.Context, _ *mcp.CallToolRequest, input Input) (*mcp.CallToolResult, Output, error) {
-		input, err := withResolvedOrg(input)
+		input, err := withResolvedOrg(client, input)
 		if err != nil {
 			var zero Output
 			return nil, zero, err
@@ -52,7 +52,7 @@ func addOrgMCPTool[Input, Output any](server *mcp.Server, client *api.Client, op
 	})
 }
 
-func withResolvedOrg[I any](input I) (I, error) {
+func withResolvedOrg[I any](client *api.Client, input I) (I, error) {
 	v := reflect.ValueOf(&input).Elem()
 	if v.Kind() != reflect.Struct {
 		return input, fmt.Errorf("operation input must be a struct")
@@ -64,7 +64,7 @@ func withResolvedOrg[I any](input I) (I, error) {
 	if f.String() != "" {
 		return input, nil
 	}
-	slug, err := resolveOrgSlug()
+	slug, err := resolveMCPOrganizationSlug(client)
 	if err != nil {
 		return input, err
 	}
@@ -73,4 +73,26 @@ func withResolvedOrg[I any](input I) (I, error) {
 	}
 	f.SetString(slug)
 	return input, nil
+}
+
+func resolveMCPOrganizationSlug(client *api.Client) (string, error) {
+	if slug, err := resolveOrgSlug(); err == nil {
+		return slug, nil
+	}
+	return soleAccessibleOrganizationSlug(client)
+}
+
+func soleAccessibleOrganizationSlug(client *api.Client) (string, error) {
+	missing := fmt.Errorf("organization slug is required — use --org <slug> or set FENCER_ORG")
+	if client == nil {
+		return "", missing
+	}
+	result, err := client.GetOrganizations(api.ListOptions{Page: 1, PageSize: 2})
+	if err != nil {
+		return "", err
+	}
+	if result == nil || result.Count != 1 || len(result.Results) != 1 {
+		return "", missing
+	}
+	return result.Results[0].Slug, nil
 }
